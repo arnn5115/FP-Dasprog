@@ -6,17 +6,25 @@
 #include <conio.h>
 #include <unistd.h>
 
+// define the text format escape sequences
+#define SIGMA "\e[1;97;103m"
+#define BENAR "\e[1;97;102m"
+#define SALAH "\e[1;97;101m"
+#define BOLD  "\e[1;97m"
+#define RESET "\e[0m" 
+
 clock_t startTimer() {
     return clock();
 }
-int cPow(int base, int exponent){
+
+int pangkat(int base, int exponent){
     if (exponent == 0) return 1;
-    return (exponent < 2) ? base : base * cPow(base, exponent-1);
+    return (exponent < 2) ? base : base * pangkat(base, exponent-1);
 }
 
 void loading(){
     char spinner[] = {'|', '/', '-', '\\'};
-    int loading = 100000;
+    int loading = 100000; //in µs
     
     printf("  __  __       _ _   _       _ _           _   _               _____  _         \n");
     printf(" |  \\/  |     | | | (_)     | (_)         | | (_)             |  __ \\(_)        \n");
@@ -27,12 +35,13 @@ void loading(){
     printf("                      | |                                                        \n");
     printf("                      |_|                                                        \n");
 
-    printf("Loading... ");
+    printf("Loading(  ");
     for (int i = 0; i < 20; i++) {
-        printf("\b%c", spinner[i % 4]);
+        printf("\b\b%c)", spinner[i % 4]);
         fflush(stdout);
         usleep(loading);   // Tunggu selama 0,1 detik
     }
+    printf("\b\b\b Complete.");
 }
 
 int generateQuestion(int nDigitA, int nDigitB, double timer){
@@ -41,9 +50,9 @@ int generateQuestion(int nDigitA, int nDigitB, double timer){
     char sAns[100];
     int benar;
     int i = 0;
-    int a = rand() % cPow(10, nDigitA)+1;
-    int b = rand() % cPow(10, nDigitB)+1;
-    printf("Sisa Waktu: %.0lf detik", timer);
+    int a = rand() % pangkat(10, nDigitA)+1;
+    int b = rand() % pangkat(10, nDigitB)+1;
+    printf("Sisa Waktu: %s%.0lf%s detik", BOLD, timer, RESET);
     printf("\n%d x %d = ", a, b);
     
     fflush(stdout);
@@ -73,13 +82,13 @@ int generateQuestion(int nDigitA, int nDigitB, double timer){
 
     sAns[i] = '\0';
     ans = atoi(sAns);
-    printf("\nJawaban kamu %d ",ans);
+    printf("\nJawaban kamu ");
     if (ans == a*b) {
-        printf("(BENAR)");
+        printf("%sBENAR%s", BENAR, RESET);
         benar = 1;
     }
     else {
-        printf("(SALAH)");
+        printf("%sSALAH%s", SALAH, RESET);
         benar = 0;
     }
     printf("!\n");
@@ -122,20 +131,21 @@ int diffSelector(int diff){
 }
 
 int main(){    
-    // loading(); // comment if debugging
+    loading(); // comment if debugging
     
     char inputStr[10];
     int score = 0;
     
+    printf("\n--------------------------------------\n");
+    printf("Tingkat Rizz :\n");
     printf("--------------------------------------\n");
-    printf("\nTingkat Kesulitan :\n");
+    printf("   1 - Big L\n");
+    printf("   2 - Beta\n");
+    printf("   3 - Normal\n");
+    printf("   4 - Alpha\n");
+    printf("   5 - %sSigma%s\n", SIGMA, RESET);
     printf("--------------------------------------\n");
-    printf("   1 - Easy\n");
-    printf("   2 - Medium\n");
-    printf("   3 - Hard\n");
-    printf("   4 - Insane\n");
-    printf("   5 - Impossible\n");
-    printf("   0 - Quit\n");
+    printf("   0 - Keluar\n");
     printf("--------------------------------------\n");
     while(1) {
         printf("Pilih Tingkat Kesulitan : ");   
