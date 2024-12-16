@@ -161,19 +161,19 @@ int main(){
         }
         printf("--------------------------------------\n");
 
-        if (!strcmp(inputStr, "easy") || !strcmp(inputStr,"1")){
+        if (!strcmp(inputStr, "bigl") || !strcmp(inputStr,"1")){
             score += diffSelector(1);
         }
-        else if (!strcmp(inputStr, "medium") || !strcmp(inputStr,"2")){
+        else if (!strcmp(inputStr, "beta") || !strcmp(inputStr,"2")){
             score += diffSelector(2);
         }
-        else if (!strcmp(inputStr, "hard") || !strcmp(inputStr,"3")){
+        else if (!strcmp(inputStr, "normal") || !strcmp(inputStr,"3")){
             score += diffSelector(3);
         }
-        else if (!strcmp(inputStr, "insane") || !strcmp(inputStr,"4")){
+        else if (!strcmp(inputStr, "alpha") || !strcmp(inputStr,"4")){
             score += diffSelector(4);
         }
-        else if (!strcmp(inputStr, "impossible") || !strcmp(inputStr,"5")){
+        else if (!strcmp(inputStr, "sigma") || !strcmp(inputStr,"5")){
             score += diffSelector(5);
         }
         printf("--------------------------------------\n");
