@@ -52,10 +52,11 @@ int generateQuestion(int nDigitA, int nDigitB, double timer){
     int i = 0;
     int a = rand() % pangkat(10, nDigitA)+1;
     int b = rand() % pangkat(10, nDigitB)+1;
-    printf("Sisa Waktu: %s%.0lf%s detik", BOLD, timer, RESET);
-    printf("\n%d x %d = ", a, b);
+    printf("Sisa Waktu: %s%.0lf%s detik\n", BOLD, timer, RESET);
+    printf("%s%d x %d = ", BOLD, a, b);
     
     fflush(stdout);
+    fflush(stdin);
     clock_t start = startTimer();
     while (((double)(clock() - start)) / CLOCKS_PER_SEC < timer){
         // int remainingTime = timer - (int)(((double)(clock() - start)) / CLOCKS_PER_SEC);
@@ -82,7 +83,7 @@ int generateQuestion(int nDigitA, int nDigitB, double timer){
 
     sAns[i] = '\0';
     ans = atoi(sAns);
-    printf("\nJawaban kamu ");
+    printf("%s\nJawaban kamu ", RESET);
     if (ans == a*b) {
         printf("%sBENAR%s", BENAR, RESET);
         benar = 1;
